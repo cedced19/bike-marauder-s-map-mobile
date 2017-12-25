@@ -8,60 +8,66 @@ import SmsListener from 'react-native-android-sms-listener';
 import Contacts from 'react-native-contacts';
 
 export default class App extends React.Component {
-  
-  render() {
-    function startListener (params) {
-      PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.READ_SMS, PermissionsAndroid.PERMISSIONS.READ_CONTACTS
-      ]).then(function (data) {
-        if (data['android.permission.READ_SMS'] !== 'granted') {
-          Alert.alert(
-            'Error',
-            'Cannot get permission to read SMS.',
-            [{text: 'OK'}],
-            { cancelable: false }
-          );
-        } else if (data['android.permission.READ_CONTACTS'] !== 'granted') {
-          Alert.alert(
-            'Error',
-            'Cannot get permission to read contacts.',
-            [{text: 'OK'}],
-            { cancelable: false }
-          );
-        } else {
-          Contacts.getAll((err, contacts) => {
-            if(err === 'denied'){
-              Alert.alert(
-                'Error',
-                'An error occurated when reading contacts.',
-                [{text: 'OK'}],
-                { cancelable: false }
-              );
-            } else {
-              Alert.alert(
-                'Info',
-                'The app is now collecting coordinates.',
-                [{text: 'OK'}],
-                { cancelable: false }
-              );
-            }
-          })
-        }
-      }).catch(function () {
+  constructor(props) {
+    super(props)
+    this.state = {
+        server: ''
+    }
+    this._startListener = this._startListener.bind(this)
+  }
+
+  _startListener (event) {
+    let server=this.state.server;
+    PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.READ_SMS, PermissionsAndroid.PERMISSIONS.READ_CONTACTS
+    ]).then(function (data) {
+      if (data['android.permission.READ_SMS'] !== 'granted') {
         Alert.alert(
           'Error',
-          'Cannot get permissions',
+          'Cannot get permission to read SMS.',
           [{text: 'OK'}],
           { cancelable: false }
         );
-      }) 
-      /*
+      } else if (data['android.permission.READ_CONTACTS'] !== 'granted') {
+        Alert.alert(
+          'Error',
+          'Cannot get permission to read contacts.',
+          [{text: 'OK'}],
+          { cancelable: false }
+        );
+      } else {
+        Contacts.getAll((err, contacts) => {
+          if(err === 'denied'){
+            Alert.alert(
+              'Error',
+              'An error occurated when reading contacts.',
+              [{text: 'OK'}],
+              { cancelable: false }
+            );
+          } else {
+            Alert.alert(
+              'Info',
+              'The app is now collecting coordinates.',
+              [{text: 'OK'}],
+              { cancelable: false }
+            );
+          }
+        })
+      }
+    }).catch(function () {
+      Alert.alert(
+        'Error',
+        'Cannot get permissions',
+        [{text: 'OK'}],
+        { cancelable: false }
+      );
+    }) 
+    /*SmsListener.addListener(message => {
+      console.error(message);
+    }); */
+  }
 
-      SmsListener.addListener(message => {
-        console.error(message);
-      }); */
-    }
-
+  render() {
     
     return (
       <StyleProvider style={getTheme(material)}>
@@ -79,14 +85,12 @@ export default class App extends React.Component {
             <Form>
               <Item floatingLabel>
                 <Label>Server address</Label>
-                <Input />
+                <Input onChangeText={(text) => this.setState({server: text})} />
               </Item>
-              <Button style={{marginTop: 10 }} onPress={startListener}>
+              <Button style={{marginTop: 10 }}  onPress={this._startListener}>
                 <Text>Start collecting coordinates</Text>
               </Button>
             </Form>
-           
-             
             
           </Content>
         </Container>
