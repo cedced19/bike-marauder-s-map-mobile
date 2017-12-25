@@ -7,6 +7,10 @@ import material from './native-base-theme/variables/material';
 import SmsListener from 'react-native-android-sms-listener';
 import Contacts from 'react-native-contacts';
 
+function isUrl (url) {
+  return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(url)
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -45,12 +49,21 @@ export default class App extends React.Component {
               { cancelable: false }
             );
           } else {
-            Alert.alert(
-              'Info',
-              'The app is now collecting coordinates.',
-              [{text: 'OK'}],
-              { cancelable: false }
-            );
+            if (isUrl(server)) {
+              Alert.alert(
+                'Info',
+                'The app is now collecting coordinates.',
+                [{text: 'OK'}],
+                { cancelable: false }
+              );
+            } else {
+              Alert.alert(
+                'Error',
+                'The Address is not valid.',
+                [{text: 'OK'}],
+                { cancelable: false }
+              );
+            }
           }
         })
       }
