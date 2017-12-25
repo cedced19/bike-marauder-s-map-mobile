@@ -12,30 +12,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/bikemaraudersmapmobile/react-native-android-sms-listener/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8d168ab30e325c5c02852af05e3f50026365309d">
-        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/bikemaraudersmapmobile-react-native-android-sms-listener-unspecified_92828c2fa27ee21f7b933e5b7666948c2b99ad3c.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
         <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_08dbb66d193b4db540b6df17b220d1d52a898f09.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_c24a1689ae19ffbf2e4385bc48b951e1c5321233.jar" />
     </item>
     <item
         is-multidex="false"
@@ -54,6 +36,15 @@
         revision="23.0.1"
         sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
         <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_951de14a50f66978cc33399054e2b7b6fe407530.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/bikemaraudersmapmobile/react-native-sms-android/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="09c6a26007c4e71dd3f3f34ebd0d74a202e8ada7">
+        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/bikemaraudersmapmobile-react-native-sms-android-unspecified_b4423c7ae1b0714c9e395da519c783183fdf5113.jar" />
     </item>
     <item
         is-multidex="false"
@@ -111,6 +102,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.0.1_4e5af046710977be0bc1aa19c18c2a4728455a82.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -129,30 +129,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_28cd1bc037f150d40b19a408211c69f237ee3369.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_36dd22651a33a86ed7ef37fee8c5637a8f5d974c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/usr/local/share/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_db30d93540324723c478397323cb30513a8e0d88.jar" />
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_5207cc55bdc72e1a9187203c2ffb0b51ad4b9db3.jar" />
     </item>
     <item
         is-multidex="false"
@@ -162,6 +144,24 @@
         revision="23.0.1"
         sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
         <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_4f555b876dab8e4d801925b4431778201dd7218f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/usr/local/share/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1_977d393700e73c5180741d4cbfadc9d6eb005f23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/repos/bike-marauder-s-map-mobile/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1_e9d487143d6274b7ffd26da8f093e796ca7c8496.jar" />
     </item>
     <item
         is-multidex="false"

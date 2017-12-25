@@ -1,6 +1,7 @@
 package com.bikemaraudersmapmobile;
 
 import com.facebook.react.ReactActivity;
+import com.rhaker.reactnativesmsandroid.RNSmsAndroidPackage;
 
 public class MainActivity extends ReactActivity {
 
