@@ -71,6 +71,42 @@ function checkSMS (server, lastUpdate, checkSince, contacts) {
           coords.push(obj);
         }
       });
+      if (!coords.length) {
+        Alert.alert(
+          I18n.t('info'),
+          I18n.t('info_no_coords_in_sms_found'),
+          [{text: I18n.t('ok')}],
+          { cancelable: false }
+        );
+      } else {
+        fetch(server + '/coords', {  
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(coords)
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if (responseJson.status == 'ok') {
+            Alert.alert(
+              I18n.t('info'),
+              I18n.t('info_coords_saved'),
+              [{text: I18n.t('ok')}],
+              { cancelable: false }
+            );
+          }
+        })
+        .catch((error) => {
+          Alert.alert(
+            I18n.t('error'),
+            I18n.t('error_fail_when_uploding_coords'),
+            [{text: I18n.t('ok')}],
+            { cancelable: false }
+          );
+        });
+      }
   });
 }
 
