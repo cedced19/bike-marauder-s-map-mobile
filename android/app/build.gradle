@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-i18n')
     compile project(':react-native-sms-android')
     compile project(':react-native-contacts')
     compile fileTree(dir: "libs", include: ["*.jar"])

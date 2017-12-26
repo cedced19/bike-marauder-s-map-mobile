@@ -1,0 +1,21 @@
+export default {  
+    check_last_sms: 'Vérifier les derniers SMS',
+    periode_to_check: 'Période à vérifier en minutes(par défault 5min)',
+    server_address: 'Adresse du server (prend la dernière valeur si non rempli)',
+    welcome_msg: 'Veuillez définir l\'adresse du server pour pouvoir envoyer les coordonnées.',
+    info_colecting_coordinates: 'L\'application est en train de collecter les coordonnées.',
+    error_reading_contacts: 'Une erreur est survenue dans la lecture des contacts.',
+    error_no_access_to_contacts_received: 'Impossible d\'obtenir la permission pour acceder aux contacts.',
+    error_no_access_to_SMS_received: 'Impossible d\'obtenir la permission pour lire les SMS.',
+    error_invalid_address: 'L\'adresse est invalide.',
+    error_periode_is_not_number: 'La période donnée n\'est pas un nombre.',
+    error_address_empty: 'L\'adresse est vide.',
+    error_cannot_read_sms: 'Une erreur est survenue lors de la lecture des SMS.',
+    warning_take_previous_value_address: 'L\'adresse est vide mais vous pouvez utiliser celle que vous avez définie la dernière fois:',
+    ok: 'OK',
+    error: 'Erreur',
+    cancel: 'Annuler',
+    yes: 'D\'accord',
+    info: 'Info',
+    warning: 'Attention'
+};

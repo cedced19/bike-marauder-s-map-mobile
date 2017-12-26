@@ -5,6 +5,7 @@ import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
 import Contacts from 'react-native-contacts';
 import SmsAndroid from 'react-native-sms-android';
+import I18n from './app/i18n/i18n';
 
 function isUrl (url) {
   return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(url)
@@ -49,9 +50,9 @@ function getContact (number, contacts) {
 function checkSMS (server, lastUpdate, checkSince, contacts) {
   SmsAndroid.list('{box:"inbox"}', (fail) => {
     Alert.alert(
-      'Error',
-      'An error occurated when reading SMS.',
-      [{text: 'OK'}],
+      I18n.t('error'),
+      I18n.t('error_cannot_read_sms'),
+      [{text: I18n.t('ok')}],
       { cancelable: false }
     );
   }, (count, smsList) => {
@@ -93,39 +94,39 @@ export default class App extends React.Component {
 
     if (server == '') {
       AsyncStorage.getItem('server', (err, value) => {
-        if (err || value == '') {
+        if (err || value == '' || value == null) {
           Alert.alert(
-            'Error',
-            'The Address is empty.',
-            [{text: 'OK'}]
+            I18n.t('error'),
+            I18n.t('error_address_empty'),
+            [{text: I18n.t('ok')}]
           );
         } else {
           Alert.alert(
-            'Warning',
-            'The Address is empty but you can use the address you set last time: ' + value,
+            I18n.t('warning'),
+            I18n.t('warning_take_previous_value_address') + ' ' + value,
             [
               {
-                text: 'Yes', onPress: () => {
+                text: I18n.t('yes'), onPress: () => {
                   this.state.serverOld = value;
                   this._startListener();
                 }
               },
-              {text: 'Cancel'}
+              {text: I18n.t('cancel')}
             ]
           );
         }
       });
     } else if (isNaN(checkSince) && checkSince != '') {
       Alert.alert(
-        'Error',
-        'The periode is not number.',
-        [{text: 'OK'}]
+        I18n.t('error'),
+        I18n.t('error_periode_is_not_number'),
+        [{text: I18n.t('ok')}]
       );
      } else if (!isUrl(server)) {
       Alert.alert(
-        'Error',
-        'The Address is not valid.',
-        [{text: 'OK'}]
+        I18n.t('error'),
+        I18n.t('error_invalid_address'),
+        [{text: I18n.t('ok')}]
       );
     } else {
       if (checkSince == '') checkSince = '5';
@@ -135,29 +136,29 @@ export default class App extends React.Component {
       ]).then((data) => {
         if (data['android.permission.READ_SMS'] !== 'granted') {
           Alert.alert(
-            'Error',
-            'Cannot get permission to read SMS.',
-            [{text: 'OK'}]
+            I18n.t('error'),
+            I18n.t('error_no_access_to_SMS_received'),
+            [{text: I18n.t('ok')}]
           );
         } else if (data['android.permission.READ_CONTACTS'] !== 'granted') {
           Alert.alert(
-            'Error',
-            'Cannot get permission to read contacts.',
-            [{text: 'OK'}]
+            I18n.t('error'),
+            I18n.t('error_no_access_to_contacts_received'),
+            [{text: I18n.t('ok')}]
           );
         } else {
           Contacts.getAll((err, contacts) => {
             if(err === 'denied'){
               Alert.alert(
-                'Error',
-                'An error occurated when reading contacts.',
-                [{text: 'OK'}]
+                I18n.t('error'),
+                I18n.t('error_reading_contacts'),
+                [{text: I18n.t('ok')}]
               );
             } else {
                 Alert.alert(
-                  'Info',
-                  'The app is now collecting coordinates.',
-                  [{text: 'OK'}]
+                  I18n.t('info'),
+                  I18n.t('info_colecting_coordinates'),
+                  [{text: I18n.t('ok')}]
                 );
                 checkSMS(server, lastUpdate, checkSince, contacts);
                 this.state.lastUpdate = (new Date()).getTime();
@@ -166,9 +167,9 @@ export default class App extends React.Component {
         }
       }).catch(function () {
         Alert.alert(
-          'Error',
+          I18n.t('error'),
           'Cannot get permissions',
-          [{text: 'OK'}]
+          [{text: I18n.t('ok')}]
         );
       });
     }
@@ -186,21 +187,21 @@ export default class App extends React.Component {
         
           <Content contentContainerStyle ={{paddingHorizontal: 10 }}>
             <Text>
-              Please set a server adress to send coordinates.
+              {I18n.t('welcome_msg')}
             </Text>
             <Form>
-              <Item floatingLabel>
-                <Label>Server address (take last value if empty)</Label>
+              <Item stackedLabel>
+                <Label>{I18n.t('server_address')}</Label>
                 <Input onChangeText={(text) => this.state.server = text} />
               </Item>
               {(!this.state.lastUpdate) ? (
-                <Item floatingLabel>
-                  <Label>Periode to check in minutes (default 5min)</Label>
+                <Item stackedLabel>
+                  <Label>{I18n.t('periode_to_check')}</Label>
                   <Input onChangeText={(text) => this.state.checkSince = text} />
                 </Item>
             ): null}
               <Button style={{marginTop: 10 }}  onPress={this._startListener}>
-                <Text>Check last SMS</Text>
+                <Text>{I18n.t('check_last_sms')}</Text>
               </Button>
             </Form>
             

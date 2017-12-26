@@ -1,0 +1,21 @@
+export default {  
+    check_last_sms: 'Check last SMS',
+    periode_to_check: 'Periode to check in minutes (default 5min)',
+    server_address: 'Server address (take last value if empty)',
+    welcome_msg: 'Please set a server adress to send coordinates.',
+    info_colecting_coordinates: 'The app is now collecting coordinates.',
+    error_reading_contacts: 'An error occurated when reading contacts.',
+    error_no_access_to_contacts_received: 'Cannot get permission to read contacts.',
+    error_no_access_to_SMS_received: 'Cannot get permission to read SMS.',
+    error_invalid_address: 'The Address is not valid.',
+    error_periode_is_not_number: 'The periode is not a number.',
+    error_address_empty: 'The Address is empty.',
+    error_cannot_read_sms: 'An error occurated when reading SMS.',
+    warning_take_previous_value_address: 'The Address is empty but you can use the address you set last time:',
+    ok: 'OK',
+    error: 'Error',
+    cancel: 'Cancel',
+    yes: 'Yes',
+    info: 'Info',
+    warning: 'Warning'
+};
