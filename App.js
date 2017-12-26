@@ -1,6 +1,5 @@
 import React from 'react';
-import { PermissionsAndroid, Alert } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { PermissionsAndroid, Alert, AsyncStorage } from 'react-native';
 import { Container, Header, Content, Button, Text, StyleProvider, Body, Title, Form, Input, Item, Label } from 'native-base';
 import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
@@ -68,12 +67,12 @@ function checkSMS (server, lastUpdate, checkSince, contacts) {
           if (contact !== false) {
             obj.contact = contact;
           }
-          
           coords.push(obj);
         }
       });
   });
 }
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -83,80 +82,99 @@ export default class App extends React.Component {
         lastUpdate: false,
         checkSince: '5'
     }
-    this._startListener = this._startListener.bind(this)
+    this._startListener = this._startListener.bind(this);
   }
 
-  _startListener (event) {
-    let server=this.state.server;
+  _startListener () {
+    let server = this.state.serverOld || this.state.server;
+    this.state.serverOld = null;
     let lastUpdate=this.state.lastUpdate;
     let checkSince=this.state.checkSince;
-    PermissionsAndroid.requestMultiple([
-      PermissionsAndroid.PERMISSIONS.READ_SMS, PermissionsAndroid.PERMISSIONS.READ_CONTACTS
-    ]).then( (data) => {
-      if (data['android.permission.READ_SMS'] !== 'granted') {
-        Alert.alert(
-          'Error',
-          'Cannot get permission to read SMS.',
-          [{text: 'OK'}],
-          { cancelable: false }
-        );
-      } else if (data['android.permission.READ_CONTACTS'] !== 'granted') {
-        Alert.alert(
-          'Error',
-          'Cannot get permission to read contacts.',
-          [{text: 'OK'}],
-          { cancelable: false }
-        );
-      } else {
-        Contacts.getAll((err, contacts) => {
-          if(err === 'denied'){
-            Alert.alert(
-              'Error',
-              'An error occurated when reading contacts.',
-              [{text: 'OK'}],
-              { cancelable: false }
-            );
-          } else {
-            if (isNaN(checkSince)) {
-              Alert.alert(
-                'Error',
-                'The periode is not number.',
-                [{text: 'OK'}],
-                { cancelable: false }
-              );
-            } else if (isUrl(server)) {
-              Alert.alert(
-                'Info',
-                'The app is now collecting coordinates.',
-                [{text: 'OK'}],
-                { cancelable: false }
-              );
-              
-              checkSMS(server, lastUpdate, checkSince, contacts);
-              this.state.lastUpdate = (new Date()).getTime();
-            } else {
-              Alert.alert(
-                'Error',
-                'The Address is not valid.',
-                [{text: 'OK'}],
-                { cancelable: false }
-              );
-            }
-          }
-        })
-      }
-    }).catch(function () {
+
+    if (server == '') {
+      AsyncStorage.getItem('server', (err, value) => {
+        if (err || value == '') {
+          Alert.alert(
+            'Error',
+            'The Address is empty.',
+            [{text: 'OK'}]
+          );
+        } else {
+          Alert.alert(
+            'Warning',
+            'The Address is empty but you can use the address you set last time: ' + value,
+            [
+              {
+                text: 'Yes', onPress: () => {
+                  this.state.serverOld = value;
+                  this._startListener();
+                }
+              },
+              {text: 'Cancel'}
+            ]
+          );
+        }
+      });
+    } else if (isNaN(checkSince) && checkSince != '') {
       Alert.alert(
         'Error',
-        'Cannot get permissions',
-        [{text: 'OK'}],
-        { cancelable: false }
+        'The periode is not number.',
+        [{text: 'OK'}]
       );
-    });
+     } else if (!isUrl(server)) {
+      Alert.alert(
+        'Error',
+        'The Address is not valid.',
+        [{text: 'OK'}]
+      );
+    } else {
+      if (checkSince == '') checkSince = '5';
+      AsyncStorage.setItem('server', server);
+      PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_SMS, PermissionsAndroid.PERMISSIONS.READ_CONTACTS
+      ]).then((data) => {
+        if (data['android.permission.READ_SMS'] !== 'granted') {
+          Alert.alert(
+            'Error',
+            'Cannot get permission to read SMS.',
+            [{text: 'OK'}]
+          );
+        } else if (data['android.permission.READ_CONTACTS'] !== 'granted') {
+          Alert.alert(
+            'Error',
+            'Cannot get permission to read contacts.',
+            [{text: 'OK'}]
+          );
+        } else {
+          Contacts.getAll((err, contacts) => {
+            if(err === 'denied'){
+              Alert.alert(
+                'Error',
+                'An error occurated when reading contacts.',
+                [{text: 'OK'}]
+              );
+            } else {
+                Alert.alert(
+                  'Info',
+                  'The app is now collecting coordinates.',
+                  [{text: 'OK'}]
+                );
+                checkSMS(server, lastUpdate, checkSince, contacts);
+                this.state.lastUpdate = (new Date()).getTime();
+            }
+          })
+        }
+      }).catch(function () {
+        Alert.alert(
+          'Error',
+          'Cannot get permissions',
+          [{text: 'OK'}]
+        );
+      });
+    }
   }
 
   render() {
-    
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
@@ -172,13 +190,13 @@ export default class App extends React.Component {
             </Text>
             <Form>
               <Item floatingLabel>
-                <Label>Server address</Label>
+                <Label>Server address (take last value if empty)</Label>
                 <Input onChangeText={(text) => this.state.server = text} />
               </Item>
               {(!this.state.lastUpdate) ? (
                 <Item floatingLabel>
-                  <Label>Periode to check in minutes</Label>
-                  <Input value={this.state.checkSince} onChangeText={(text) => this.state.checkSince = text} />
+                  <Label>Periode to check in minutes (default 5min)</Label>
+                  <Input onChangeText={(text) => this.state.checkSince = text} />
                 </Item>
             ): null}
               <Button style={{marginTop: 10 }}  onPress={this._startListener}>
