@@ -124,7 +124,7 @@ export default class App extends React.Component {
 
   _startListener () {
     let server = this.state.serverOld || this.state.server;
-    this.state.serverOld = null;
+    this.setState({serverOld: null});
     let lastUpdate=this.state.lastUpdate;
     let checkSince=this.state.checkSince;
 
@@ -143,7 +143,7 @@ export default class App extends React.Component {
             [
               {
                 text: I18n.t('yes'), onPress: () => {
-                  this.state.serverOld = value;
+                  this.setState({serverOld: value});
                   this._startListener();
                 }
               },
@@ -197,7 +197,7 @@ export default class App extends React.Component {
                   [{text: I18n.t('ok')}]
                 );
                 checkSMS(server, lastUpdate, checkSince, contacts);
-                this.state.lastUpdate = (new Date()).getTime();
+                this.setState({lastUpdate: (new Date()).getTime()});
             }
           })
         }
@@ -210,6 +210,15 @@ export default class App extends React.Component {
       });
     }
   }
+
+  componentDidMount () {
+    AsyncStorage.getItem('server', (err, value) => {
+      if (!err || value != '' || value != null) {
+        this.setState({server: value});
+      }
+    });
+  }
+
 
   render() {
     return (
@@ -228,12 +237,12 @@ export default class App extends React.Component {
             <Form>
               <Item stackedLabel>
                 <Label>{I18n.t('server_address')}</Label>
-                <Input onChangeText={(text) => this.state.server = text} />
+                <Input value={this.state.server} onChangeText={(text) => this.setState({server: text})} />
               </Item>
               {(!this.state.lastUpdate) ? (
                 <Item stackedLabel>
                   <Label>{I18n.t('periode_to_check')}</Label>
-                  <Input onChangeText={(text) => this.state.checkSince = text} />
+                  <Input value={this.state.checkSince} onChangeText={(text) => this.setState({checkSince: text})} />
                 </Item>
             ): null}
               <Button style={{marginTop: 10 }}  onPress={this._startListener}>
